@@ -194,7 +194,15 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnUndoButtonClick(object sender, EventArgs e)
         {
-            // Code here
+            // Send "undo" message
+            this.NewInput(this.nextButton, new NewInputEventArgs("-U"));
+
+            // Check list pointer
+            if (this.listPointer > 0)
+            {
+                // Decrement list pointer
+                this.listPointer--;
+            }
         }
 
         /// <summary>
