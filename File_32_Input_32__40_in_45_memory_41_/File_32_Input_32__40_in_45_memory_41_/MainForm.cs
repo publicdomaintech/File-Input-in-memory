@@ -108,6 +108,9 @@ namespace File_32_Input_32__40_in_45_memory_41_
 
             // Rise list pointer
             this.listPointer++;
+
+            // Update numbers left status label
+            this.UpdateNumbersLeftStatusLabel();
         }
 
         /// <summary>
@@ -165,8 +168,8 @@ namespace File_32_Input_32__40_in_45_memory_41_
                         }
                     }
 
-                    // Update number left status label
-                    this.numbersLeftCountToolStripStatusLabel.Text = this.loadedNumbersList.Count.ToString();
+                    // Update numbers left status label
+                    this.UpdateNumbersLeftStatusLabel();
                 }
                 catch (Exception ex)
                 {
@@ -174,6 +177,15 @@ namespace File_32_Input_32__40_in_45_memory_41_
                     MessageBox.Show("Error while reading file from disk." + Environment.NewLine + "Error message: " + ex.Message, "File read error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        /// <summary>
+        /// Updates the numbers left status label.
+        /// </summary>
+        private void UpdateNumbersLeftStatusLabel()
+        {
+            // Update numbers left on status label
+            this.numbersLeftCountToolStripStatusLabel.Text = (this.loadedNumbersList.Count - this.listPointer).ToString();
         }
 
         /// <summary>
