@@ -81,7 +81,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
         public string Input(string inputString, string betString)
         {
             // Check if must loop
-            if (inputString == "-L")
+            if (inputString == "-L" && this.isRunning)
             {
                 // Send next number
                 this.SendNextNumber();
@@ -96,11 +96,18 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// </summary>
         private void SendNextNumber()
         {
-            // Check there are numbers left
+            // Check there's something to work with and pointer is within range
+            if (this.loadedNumbersList.Count < 1 || this.listPointer > (this.loadedNumbersList.Count - 1))
+            {
+                // Exit
+                return;
+            }
 
             // Send number to pdBets
+            this.NewInput(this.nextButton, new NewInputEventArgs(this.loadedNumbersList[this.listPointer].ToString()));
 
-            // Rise index
+            // Rise list pointer
+            this.listPointer++;
         }
 
         /// <summary>
