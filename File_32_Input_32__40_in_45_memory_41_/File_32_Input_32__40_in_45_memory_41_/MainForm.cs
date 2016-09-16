@@ -183,7 +183,8 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnNextButtonClick(object sender, EventArgs e)
         {
-            // Code here
+            // Send next number
+            this.SendNextNumber();
         }
 
         /// <summary>
