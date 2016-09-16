@@ -50,6 +50,9 @@
       <HintPath>..\..\..\pdBets\pdBets\bin\Release\IPdBets.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="PdBetsLib">
+      <HintPath>..\..\..\pdBets\pdBets\bin\Release\PdBetsLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs" />

@@ -294,6 +294,10 @@ namespace File_32_Input_32__40_in_45_memory_41_
 			this.runButton.UseVisualStyleBackColor = true;
 			this.runButton.Click += new System.EventHandler(this.OnRunButtonClick);
 			// 
+			// mainOpenFileDialog
+			// 
+			this.mainOpenFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

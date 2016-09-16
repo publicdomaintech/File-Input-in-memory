@@ -27,6 +27,8 @@ namespace File_32_Input_32__40_in_45_memory_41_
     using System.Collections.Generic;
     using System.ComponentModel.Composition;
     using System.Drawing;
+    using System.IO;
+    using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using PdBets;
 
@@ -36,6 +38,26 @@ namespace File_32_Input_32__40_in_45_memory_41_
     [Export(typeof(IPdBets))]
     public partial class MainForm : Form, IPdBets
     {
+        /// <summary>
+        /// The loaded numbers list.
+        /// </summary>
+        private List<int> loadedNumbersList = new List<int>();
+
+        /// <summary>
+        /// The list pointer.
+        /// </summary>
+        private int listPointer = 0;
+
+        /// <summary>
+        /// Running flag
+        /// </summary>
+        private bool isRunning = false;
+
+        /// <summary>
+        /// The roulette class instance.
+        /// </summary>
+        private Roulette roulette = new Roulette();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="File_32_Input_32__40_in_45_memory_41_.MainForm"/> class.
         /// </summary>
@@ -58,8 +80,27 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <returns>>The processed input string.</returns>
         public string Input(string inputString, string betString)
         {
+            // Check if must loop
+            if (inputString == "-L")
+            {
+                // Send next number
+                this.SendNextNumber();
+            }
+
             // Return passed bet string
             return betString;
+        }
+
+        /// <summary>
+        /// Sends the next number.
+        /// </summary>
+        private void SendNextNumber()
+        {
+            // Check there are numbers left
+
+            // Send number to pdBets
+
+            // Rise index
         }
 
         /// <summary>
@@ -69,7 +110,63 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnOpenFileButtonClick(object sender, EventArgs e)
         {
-			
+            // Show open file dialog and check for dialog result OK
+            if (this.mainOpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Check for empty file
+                    if (new System.IO.FileInfo(this.mainOpenFileDialog.FileName).Length == 0)
+                    {
+                        // Nothing to work with, halt flow
+                        return;
+                    }
+
+                    /* Read file to memory */
+
+                    // Reset list pointer
+                    this.listPointer = 0;
+
+                    // Reset loaded numbers list
+                    this.loadedNumbersList.Clear();
+
+                    // Make use of StreamReader
+                    using (StreamReader sr = new StreamReader(this.mainOpenFileDialog.FileName))
+                    {
+                        // Declare current line
+                        string currentLine;
+
+                        // Iterate through all lines in file
+                        while ((currentLine = sr.ReadLine()) != null)
+                        {
+                            // Process numbers only
+                            currentLine = Regex.Replace(currentLine, "[^0-9]", string.Empty);
+
+                            // Check there's something
+                            if (currentLine.Length == 0)
+                            {
+                                // Next iteration
+                                continue;
+                            }
+
+                            // Check if line contains a valid roulette number
+                            if (this.roulette.ValidateRouletteNumber(currentLine))
+                            {
+                                // Valid number, add to list
+                                this.loadedNumbersList.Add(this.roulette.GetRouletteNumber(currentLine));
+                            }
+                        }
+                    }
+
+                    // Update number left status label
+                    this.numbersLeftCountToolStripStatusLabel.Text = this.loadedNumbersList.Count.ToString();
+                }
+                catch (Exception ex)
+                {
+                    // Error message
+                    MessageBox.Show("Error while reading file from disk." + Environment.NewLine + "Error message: " + ex.Message, "File read error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         /// <summary>
@@ -79,7 +176,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnNextButtonClick(object sender, EventArgs e)
         {
-			
+            // Code here
         }
 
         /// <summary>
@@ -89,7 +186,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnUndoButtonClick(object sender, EventArgs e)
         {
-			
+            // Code here
         }
 
         /// <summary>
@@ -99,7 +196,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnRunButtonClick(object sender, EventArgs e)
         {
-			
+            // Code here
         }
 
         /// <summary>
@@ -109,7 +206,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripButtonClick(object sender, EventArgs e)
         {
-			
+            // Code here
         }
 
         /// <summary>
@@ -119,7 +216,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnAboutToolStripButtonClick(object sender, EventArgs e)
         {
-			
+            // Code here
         }
 
         /// <summary>
@@ -129,7 +226,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnExitToolStripMenuItemClick(object sender, EventArgs e)
         {
-			
+            // Code here
         }
 
         /// <summary>
@@ -139,7 +236,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnAlwaysOnTopToolStripMenuItemClick(object sender, EventArgs e)
         {
-			
+            // Code here
         }
     }
 }
