@@ -35,12 +35,12 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <summary>
         /// The current delay value.
         /// </summary>
-        int currentDelayValue;
+        private int currentDelayValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="File_32_Input_32__40_in_45_memory_41_.SetRunDelayForm"/> class.
         /// </summary>
-        /// <param name="currentDelay">Current delay.</param>
+        /// <param name="currentDelayValue">Current delay value.</param>
         public SetRunDelayForm(int currentDelayValue)
         {
             // The InitializeComponent() call is required for Windows Forms designer support.

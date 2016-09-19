@@ -261,7 +261,21 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripButtonClick(object sender, EventArgs e)
         {
-            // Code here
+            // Check if must stop
+            if (this.isRunning)
+            {
+                // Click run or stop button 
+                this.runOrStopButton.PerformClick();
+            }
+
+            // Clear loaded numbers list.
+            this.loadedNumbersList.Clear();
+
+            // Reset list pointer.
+            this.listPointer = 0;
+
+            // Update numbers left status label
+            this.UpdateNumbersLeftStatusLabel();
         }
 
         /// <summary>
@@ -309,10 +323,10 @@ namespace File_32_Input_32__40_in_45_memory_41_
             /* Try to parse new run delay */
 
             // Open set run delay form
-            using(SetRunDelayForm setRunDelayForm = new SetRunDelayForm(this.runDelayTimer.Interval))
+            using (SetRunDelayForm setRunDelayForm = new SetRunDelayForm(this.runDelayTimer.Interval))
             {
                 // Show dialog and check dialog result
-                if(setRunDelayForm.ShowDialog() == DialogResult.OK)
+                if (setRunDelayForm.ShowDialog() == DialogResult.OK)
                 {
                     // Set new run delay timer interval
                     this.runDelayTimer.Interval = setRunDelayForm.NewCurrentDelayValue;
