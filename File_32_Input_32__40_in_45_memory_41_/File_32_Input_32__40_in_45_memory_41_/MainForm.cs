@@ -294,7 +294,11 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnAlwaysOnTopToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Code here
+            // Toggle menu item
+            this.alwaysOnTopToolStripMenuItem.Checked = !this.alwaysOnTopToolStripMenuItem.Checked;
+
+            // Set topmost status
+            this.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
         }
 		
 		/// <summary>
