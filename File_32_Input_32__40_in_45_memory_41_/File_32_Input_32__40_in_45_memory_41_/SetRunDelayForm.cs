@@ -41,6 +41,9 @@ namespace File_32_Input_32__40_in_45_memory_41_
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
 
+            // Set accept button
+            this.AcceptButton = this.setValueButton;
+
             // Set current delay as edit delay combo box text
             this.editDelayComboBox.Text = currentDelayValue.ToString();
         }
