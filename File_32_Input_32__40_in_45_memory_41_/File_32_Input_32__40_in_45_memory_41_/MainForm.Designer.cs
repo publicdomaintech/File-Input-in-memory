@@ -29,6 +29,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -41,6 +42,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.setRunDelayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainToolStrip = new System.Windows.Forms.ToolStrip();
@@ -52,8 +54,9 @@ namespace File_32_Input_32__40_in_45_memory_41_
 			this.openFileButton = new System.Windows.Forms.Button();
 			this.nextButton = new System.Windows.Forms.Button();
 			this.undoButton = new System.Windows.Forms.Button();
-			this.runButton = new System.Windows.Forms.Button();
+			this.runOrStopButton = new System.Windows.Forms.Button();
 			this.mainOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.runDelayTimer = new System.Windows.Forms.Timer(this.components);
 			this.mainStatusStrip.SuspendLayout();
 			this.mainMenuStrip.SuspendLayout();
 			this.mainToolStrip.SuspendLayout();
@@ -138,7 +141,8 @@ namespace File_32_Input_32__40_in_45_memory_41_
 			// optionsToolStripMenuItem
 			// 
 			this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.alwaysOnTopToolStripMenuItem});
+									this.alwaysOnTopToolStripMenuItem,
+									this.setRunDelayToolStripMenuItem});
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
 			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
 			this.optionsToolStripMenuItem.Text = "&Options";
@@ -150,6 +154,14 @@ namespace File_32_Input_32__40_in_45_memory_41_
 			this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.alwaysOnTopToolStripMenuItem.Text = "Always on &top";
 			this.alwaysOnTopToolStripMenuItem.Click += new System.EventHandler(this.OnAlwaysOnTopToolStripMenuItemClick);
+			// 
+			// setRunDelayToolStripMenuItem
+			// 
+			this.setRunDelayToolStripMenuItem.Name = "setRunDelayToolStripMenuItem";
+			this.setRunDelayToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+			this.setRunDelayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.setRunDelayToolStripMenuItem.Text = "&Set run &delay";
+			this.setRunDelayToolStripMenuItem.Click += new System.EventHandler(this.OnSetRunDelayToolStripMenuItemClick);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -220,7 +232,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
 			this.mainTableLayoutPanel.Controls.Add(this.openFileButton, 0, 0);
 			this.mainTableLayoutPanel.Controls.Add(this.nextButton, 0, 1);
 			this.mainTableLayoutPanel.Controls.Add(this.undoButton, 1, 1);
-			this.mainTableLayoutPanel.Controls.Add(this.runButton, 0, 2);
+			this.mainTableLayoutPanel.Controls.Add(this.runOrStopButton, 0, 2);
 			this.mainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mainTableLayoutPanel.Location = new System.Drawing.Point(0, 49);
 			this.mainTableLayoutPanel.Name = "mainTableLayoutPanel";
@@ -278,25 +290,29 @@ namespace File_32_Input_32__40_in_45_memory_41_
 			this.undoButton.UseVisualStyleBackColor = true;
 			this.undoButton.Click += new System.EventHandler(this.OnUndoButtonClick);
 			// 
-			// runButton
+			// runOrStopButton
 			// 
-			this.mainTableLayoutPanel.SetColumnSpan(this.runButton, 2);
-			this.runButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.runButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.runButton.Image = ((System.Drawing.Image)(resources.GetObject("runButton.Image")));
-			this.runButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.runButton.Location = new System.Drawing.Point(3, 109);
-			this.runButton.Name = "runButton";
-			this.runButton.Size = new System.Drawing.Size(231, 49);
-			this.runButton.TabIndex = 3;
-			this.runButton.Text = "&Run";
-			this.runButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.runButton.UseVisualStyleBackColor = true;
-			this.runButton.Click += new System.EventHandler(this.OnRunButtonClick);
+			this.mainTableLayoutPanel.SetColumnSpan(this.runOrStopButton, 2);
+			this.runOrStopButton.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.runOrStopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.runOrStopButton.Image = ((System.Drawing.Image)(resources.GetObject("runOrStopButton.Image")));
+			this.runOrStopButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.runOrStopButton.Location = new System.Drawing.Point(3, 109);
+			this.runOrStopButton.Name = "runOrStopButton";
+			this.runOrStopButton.Size = new System.Drawing.Size(231, 49);
+			this.runOrStopButton.TabIndex = 3;
+			this.runOrStopButton.Text = "&Run";
+			this.runOrStopButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.runOrStopButton.UseVisualStyleBackColor = true;
+			this.runOrStopButton.Click += new System.EventHandler(this.OnRunOrStopButtonClick);
 			// 
 			// mainOpenFileDialog
 			// 
 			this.mainOpenFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+			// 
+			// runDelayTimer
+			// 
+			this.runDelayTimer.Tick += new System.EventHandler(this.OnRunDelayTimerTick);
 			// 
 			// MainForm
 			// 
@@ -321,6 +337,8 @@ namespace File_32_Input_32__40_in_45_memory_41_
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.Timer runDelayTimer;
+		private System.Windows.Forms.ToolStripMenuItem setRunDelayToolStripMenuItem;
 		private System.Windows.Forms.OpenFileDialog mainOpenFileDialog;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -335,7 +353,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-		private System.Windows.Forms.Button runButton;
+		private System.Windows.Forms.Button runOrStopButton;
 		private System.Windows.Forms.Button undoButton;
 		private System.Windows.Forms.Button nextButton;
 		private System.Windows.Forms.Button openFileButton;

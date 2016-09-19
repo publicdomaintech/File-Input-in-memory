@@ -20,6 +20,9 @@
 /// <summary>
 /// File Input (in-memory)
 /// </summary>
+using System.Security.Policy;
+
+
 namespace File_32_Input_32__40_in_45_memory_41_
 {
     // Directives
@@ -83,8 +86,12 @@ namespace File_32_Input_32__40_in_45_memory_41_
             // Check if must loop
             if (inputString == "-L" && this.isRunning)
             {
-                // Send next number
-                this.SendNextNumber();
+                // Check for numbers left
+                if(this.listPointer < this.loadedNumbersList.Count)
+                {
+                    // Enable run delay timer
+                    this.runDelayTimer.Enabled = true;
+                }
             }
 
             // Return passed bet string
@@ -174,7 +181,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
                 catch (Exception ex)
                 {
                     // Error message
-                    MessageBox.Show("Error while reading file from disk." + Environment.NewLine + "Error message: " + ex.Message, "File read error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error while reading file from disk:" + Environment.NewLine + ex.Message, "File read error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -215,16 +222,38 @@ namespace File_32_Input_32__40_in_45_memory_41_
                 // Decrement list pointer
                 this.listPointer--;
             }
+
+            // Update numbers left status label
+            this.UpdateNumbersLeftStatusLabel();
         }
 
         /// <summary>
-        /// Raises the run button click event.
+        /// Raises the run or stop button click event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
-        private void OnRunButtonClick(object sender, EventArgs e)
+        private void OnRunOrStopButtonClick(object sender, EventArgs e)
         {
-            // Code here
+            // Check if running
+            if (!this.isRunning)
+            {
+                // Change button caption
+                this.runOrStopButton.Text = "S&top";
+
+                // Set flag
+                this.isRunning = true;
+
+                // Send number to pdBets
+                this.SendNextNumber();
+            }
+            else
+            {
+                // Change button caption
+                this.runOrStopButton.Text = "&Run";
+
+                // Set flag
+                this.isRunning = false;
+            }
         }
 
         /// <summary>
@@ -254,7 +283,8 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnExitToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Code here
+            // Close
+            this.Close();
         }
 
         /// <summary>
@@ -266,5 +296,29 @@ namespace File_32_Input_32__40_in_45_memory_41_
         {
             // Code here
         }
+		
+		/// <summary>
+        /// Raises the set run delay tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnSetRunDelayToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			// Try to parse new run delay from user input
+		}
+		
+		/// <summary>
+        /// Raises the run delay timer tick event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnRunDelayTimerTick(object sender, EventArgs e)
+		{
+            // Disable this timer
+            this.runDelayTimer.Enabled = false;
+
+            // Send next number
+            this.SendNextNumber();
+		}
     }
 }
