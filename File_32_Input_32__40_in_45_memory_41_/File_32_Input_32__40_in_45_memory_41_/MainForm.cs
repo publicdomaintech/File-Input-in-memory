@@ -20,9 +20,6 @@
 /// <summary>
 /// File Input (in-memory)
 /// </summary>
-using System.Security.Policy;
-
-
 namespace File_32_Input_32__40_in_45_memory_41_
 {
     // Directives
@@ -31,6 +28,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
     using System.ComponentModel.Composition;
     using System.Drawing;
     using System.IO;
+    using System.Security.Policy;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using PdBets;
@@ -87,7 +85,7 @@ namespace File_32_Input_32__40_in_45_memory_41_
             if (inputString == "-L" && this.isRunning)
             {
                 // Check for numbers left
-                if(this.listPointer < this.loadedNumbersList.Count)
+                if (this.listPointer < this.loadedNumbersList.Count)
                 {
                     // Enable run delay timer
                     this.runDelayTimer.Enabled = true;
@@ -300,29 +298,29 @@ namespace File_32_Input_32__40_in_45_memory_41_
             // Set topmost status
             this.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
         }
-		
-		/// <summary>
+
+        /// <summary>
         /// Raises the set run delay tool strip menu item click event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnSetRunDelayToolStripMenuItemClick(object sender, EventArgs e)
-		{
-			// Try to parse new run delay from user input
-		}
-		
-		/// <summary>
+        {
+            // Try to parse new run delay from user input
+        }
+
+        /// <summary>
         /// Raises the run delay timer tick event.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnRunDelayTimerTick(object sender, EventArgs e)
-		{
+        {
             // Disable this timer
             this.runDelayTimer.Enabled = false;
 
             // Send next number
             this.SendNextNumber();
-		}
+        }
     }
 }
