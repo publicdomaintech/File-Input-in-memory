@@ -36,20 +36,20 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// Initializes a new instance of the <see cref="File_32_Input_32__40_in_45_memory_41_.SetRunDelayForm"/> class.
         /// </summary>
         /// <param name="currentDelay">Current delay.</param>
-        public SetRunDelayForm(int currentDelay)
+        public SetRunDelayForm(int currentDelayValue)
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
 
             // Set current delay as edit delay combo box text
-            this.editDelayComboBox.Text = currentDelay.ToString();
+            this.editDelayComboBox.Text = currentDelayValue.ToString();
         }
 
         /// <summary>
-        /// Gets or sets the current delay value.
+        /// Gets or sets the new current delay value.
         /// </summary>
-        /// <value>The current delay value.</value>
-        public int CurrentDelayValue { get; set; }
+        /// <value>The new current delay value.</value>
+        public int NewCurrentDelayValue { get; set; }
 
         /// <summary>
         /// Raises the set value button click event.
@@ -58,14 +58,17 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnSetValueButtonClick(object sender, EventArgs e)
         {
-            // Declare new current delay
+            // Holds new current delay
             int newCurrentDelay;
 
             // Try to parse new value
             if (int.TryParse(this.editDelayComboBox.Text, out newCurrentDelay))
             {
                 // Set new current delay value property
-                this.CurrentDelayValue = newCurrentDelay;
+                this.NewCurrentDelayValue = newCurrentDelay;
+
+                // Set dialog result
+                this.DialogResult = DialogResult.OK;
 
                 // Close dialog
                 this.Close();

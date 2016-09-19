@@ -306,7 +306,18 @@ namespace File_32_Input_32__40_in_45_memory_41_
         /// <param name="e">Event arguments.</param>
         private void OnSetRunDelayToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Try to parse new run delay from user input
+            /* Try to parse new run delay */
+
+            // Open set run delay form
+            using(SetRunDelayForm setRunDelayForm = new SetRunDelayForm(this.runDelayTimer.Interval))
+            {
+                // Show dialog and check dialog result
+                if(setRunDelayForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Set new run delay timer interval
+                    this.runDelayTimer.Interval = setRunDelayForm.NewCurrentDelayValue;
+                }
+            }
         }
 
         /// <summary>
