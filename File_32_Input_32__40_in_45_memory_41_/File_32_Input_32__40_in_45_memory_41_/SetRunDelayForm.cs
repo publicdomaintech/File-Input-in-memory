@@ -33,6 +33,11 @@ namespace File_32_Input_32__40_in_45_memory_41_
     public partial class SetRunDelayForm : Form
     {
         /// <summary>
+        /// The current delay value.
+        /// </summary>
+        int currentDelayValue;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="File_32_Input_32__40_in_45_memory_41_.SetRunDelayForm"/> class.
         /// </summary>
         /// <param name="currentDelay">Current delay.</param>
@@ -43,6 +48,9 @@ namespace File_32_Input_32__40_in_45_memory_41_
 
             // Set accept button
             this.AcceptButton = this.setValueButton;
+
+            // Set current delay value 
+            this.currentDelayValue = currentDelayValue;
 
             // Set current delay as edit delay combo box text
             this.editDelayComboBox.Text = currentDelayValue.ToString();
@@ -75,6 +83,11 @@ namespace File_32_Input_32__40_in_45_memory_41_
 
                 // Close dialog
                 this.Close();
+            }
+            else
+            {
+                // Reset current delay value as edit delay combo box text
+                this.editDelayComboBox.Text = this.currentDelayValue.ToString();
             }
         }
     }
